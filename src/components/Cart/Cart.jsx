@@ -9,10 +9,21 @@ const Cart = ({cart}) => {
 
     let totalPrice = 0;
     let totalShipping = 0;
+    let selectedItems = 0;
+
     for (const product of cart){
-        totalPrice = totalPrice + product.price
-        totalShipping = totalShipping + product.shipping
+        if (product.quantity) {      
+            totalPrice = totalPrice + product.price * product.quantity;
+            totalShipping = totalShipping + product.shipping * product.quantity;
+            selectedItems = selectedItems + product.quantity
+        }
+        else{
+            totalPrice = totalPrice + product.price
+            totalShipping = totalShipping + product.shipping
+            selectedItems = selectedItems + 1
+        }
     }
+
 
     const tax  =totalPrice * 7 / 100;
     const grandTotal = totalPrice + totalShipping + tax;
@@ -20,7 +31,7 @@ const Cart = ({cart}) => {
     return (
         <div className='cart'>
             <h4>Order summary</h4>
-            <p>Selected Items: {cart.length}</p>
+            <p>Selected Items: {selectedItems}</p>
             <p>Total Price: ${totalPrice}</p>
             <p>Total Shipping: ${totalShipping}</p>
             <p>Tax: ${tax.toFixed(2)}</p>      {/* fixed to 2 decimal points */}
