@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
+import { addToDb, getShoppingCart } from '../../utilities/fakedb';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -12,12 +13,23 @@ const Shop = () => {
         .then(res => res.json())
         .then(data => setProducts(data))
     }, []);
+    
+    useEffect( () => {
+        const sotoredCart = getShoppingCart();
+        console.log(sotoredCart)
+
+        // fetch('products.json')
+        // .then(res => res.json())
+        // .then(data => setProducts(data))
+    }, []);
+    
 
     const handleAddToCart = (product) => {
         // React er state gula immutable. tai amra push pop use korte pari na
         // tai new array create kori
         const newCart = [...cart, product];
         setCart(newCart)
+        addToDb(product.id)
     }
 
     
