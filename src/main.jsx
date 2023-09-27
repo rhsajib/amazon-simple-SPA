@@ -11,6 +11,8 @@ import Home from './components/Layout/Home.jsx';
 import Orders from './components/Orders/Orders.jsx';
 import Inventory from './components/Inventory/Inventory.jsx';
 import Login from './components/Login/Login.jsx';
+import cartProductsLoader from './loaders/cartProductsLoader.js';
+import productsLoader from './loaders/productsLoader.js';
 
 
 const router =  createBrowserRouter([
@@ -20,11 +22,13 @@ const router =  createBrowserRouter([
     children: [
       {
         path: '/shop',
-        element: <Shop />
+        element: <Shop />,
+        // loader: async () => await productsLoader
       },
       {
         path: '/orders',
-        element: <Orders />
+        element: <Orders />,
+        loader: cartProductsLoader
       },
       {
         path: '/inventory',

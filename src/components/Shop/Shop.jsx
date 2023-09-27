@@ -3,48 +3,60 @@ import './Shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import cartProductsLoader from '../../loaders/cartProductsLoader';
+import { useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
 
     useEffect( () => {
         fetch('products.json')
         .then(res => res.json())
-        .then(data => setProducts(data))
+        .then(data => {
+            // console.log(typeof data);
+            setProducts(data)
+        })
     }, []);
-    
 
+
+    // const data = useLoaderData()
+    // console.log(data, typeof data)
+    // setProducts(data)
+    
+    
+    const [cart, setCart] = useState([]);
 
     useEffect( () => {
         const storedCart = getShoppingCart();
         const savedCart = [];
-        if (storedCart) {
+       
             
-            // step 1: get id
-            for(const id in storedCart){
+        // step 1: get id
+        // loop over object/dictionary use 'in'
+        // loop over array use 'of'
+        for(const id in storedCart){
+            
+            // step 2: get product from products by using id
+            const addedProduct = products.find(product => product.id === id);
+            
+            if (addedProduct) {
                 
-                // step 2: get product from products by using id
-                const addedProduct = products.find(product => product.id == id);
-                
-                if (addedProduct) {
-                    
-                    // console.log(addedProduct)
-        
-                    // step 3: get quantity of product
-                    const quantity = storedCart[id];
-        
-                    //step 4: add quantity to the product
-                    addedProduct.quantity = quantity;
+                // console.log(addedProduct)
+    
+                // step 3: get quantity of product
+                const quantity = storedCart[id];
+    
+                //step 4: add quantity to the product
+                addedProduct.quantity = quantity;
 
-                    // step 5: add the added product to saved cart
-                    savedCart.push(addedProduct)
-                }
+                // step 5: add the added product to saved cart
+                savedCart.push(addedProduct)
             }
-            
-            // step 5: set cart
-            setCart(savedCart)
         }
+        
+        // step 5: set cart
+        setCart(savedCart)
+     
 
     }, [products]);
     
