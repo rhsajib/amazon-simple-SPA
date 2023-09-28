@@ -18,22 +18,31 @@ const Orders = () => {
         removeFromDb(id);
     }
 
-    return (
-        <div className='shop-container'>
-            <div className='review-container'>
-            {
-                carts.map(product => <ReviewItems 
-                    key={product.id}
-                    product={product}
-                    handleRemoveFromCart={handleRemoveFromCart}
-                />)
-            }
+        console.log(carts.length)
+        
+        return (
+            <div className='shop-container'>
+                <div className='review-container'>
+                {
+                    carts.length === 0 ? (
+                        <h2>Your cart is empty.</h2>
+                    ) : 
+                    (                      
+                        carts.map(product => <ReviewItems 
+                            key={product.id}
+                            product={product}
+                            handleRemoveFromCart={handleRemoveFromCart}
+                        />)
+                    )
+                }
+                </div>
+                <div className='cart-container'>
+                    <Cart cart={carts}></Cart>
+                </div>
             </div>
-            <div className='cart-container'>
-                <Cart cart={carts}></Cart>
-            </div>
-        </div>
-    );
+        );
+
+
 };
 
 export default Orders;
