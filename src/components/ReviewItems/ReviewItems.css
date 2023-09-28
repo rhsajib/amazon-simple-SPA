@@ -46,7 +46,7 @@
     /* align an item horizontally and vertically venter */
     display: flex;
     justify-content: center;  /* horizontal center */
-    align-items: center;  /* horizontal center */
+    align-items: center;  /* vertical center */
 }
 
 .icon-delete{

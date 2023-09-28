@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import './Shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
-import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
 import cartProductsLoader from '../../loaders/cartProductsLoader';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -89,6 +89,15 @@ const Shop = () => {
         addToDb(product.id);
     }
 
+    const handleClearCart = () => {
+        // handle client side
+        setCart([])
+
+        // handle database side
+        deleteShoppingCart()
+    }
+
+
     
 
     return (
@@ -110,7 +119,19 @@ const Shop = () => {
                 </div>
 
                 <div className='cart-container'>
-                    <Cart cart={cart}></Cart>
+                    <Cart 
+                        cart={cart}
+                        handleClearCart={handleClearCart}
+                        >
+                        
+                        {/* ei part ta Cart component er pet (belly) represent kore */}
+
+                        {/* Cart er peter moddhe ja ja ase ta oi Cart component er 
+                        children hishabe destructure kora jay */}
+                        <Link className='proceed-link' to={'/orders'}>
+                            <button className='btn-proceed'>Review Orders</button>
+                        </Link>
+                    </Cart>
                 </div>
 
             </div>
