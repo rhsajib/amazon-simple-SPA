@@ -49,8 +49,10 @@ const Orders = () => {
 
                     {/* Cart er peter moddhe ja ja ase ta oi Cart component er 
                         children hishabe destructure kora jay */}
-                    <Link className='proceed-link' to={"/checkout"}>
-                        <button className="btn-proceed">Proceed Checkout</button>
+                    <Link className="proceed-link" to={"/checkout"}>
+                        <button className="btn-proceed">
+                            Proceed Checkout
+                        </button>
                     </Link>
                 </Cart>
             </div>

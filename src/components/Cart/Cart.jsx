@@ -6,7 +6,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 const Cart = ({ cart, handleClearCart, children }) => {
     // 'children' diye bujhay, Cart tag jekhane use kora hoise
     // shekhane er peter moddhe ja ase
-     
+
     // const cart = props.cart;  // option 1
     // const {cart} = props;  //option 2
 
