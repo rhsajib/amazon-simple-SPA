@@ -70,7 +70,7 @@ const Shop = () => {
         // setCart(newCart)
         // addToDb(product.id)
 
-
+        // Step 1: handle client side
         let newCart = [];
         const exists = cart.find(pd => pd.id == product.id);
         if (!exists) {
@@ -82,8 +82,10 @@ const Shop = () => {
             const remaining = cart.filter(pd => pd.id !== product.id);
             newCart = [...remaining, exists];
         }
-
         setCart(newCart);
+
+
+        // Step 2: handle database side
         addToDb(product.id);
     }
 
